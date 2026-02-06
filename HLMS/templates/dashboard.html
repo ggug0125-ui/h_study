@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 상태</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+      margin: 0;
+    }
+    .login-container {
+      background-color: white;
+      padding: 30px 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container" id="loginContainer">
+  <h1 id="loginMessage">로그인 상태 확인중...</h1>
+  <button id="logoutBtn" style="display:none;">로그아웃</button>
+</div>
+
+<script>
+  // 실제로는 서버에서 로그인 상태를 받아야 하지만, 여기서는 예시로 localStorage 사용
+  const loginMessage = document.getElementById('loginMessage');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // 로그인 상태 확인
+  function checkLogin() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (isLoggedIn) {
+      loginMessage.textContent = '로그인에 성공했습니다! 🎉';
+      logoutBtn.style.display = 'inline-block';
+    } else {
+      loginMessage.textContent = '로그인이 필요합니다.';
+      logoutBtn.style.display = 'none';
+    }
+  }
+
+  // 로그아웃 버튼 클릭
+  logoutBtn.addEventListener('click', () => {
+    localStorage.setItem('isLoggedIn', 'false');
+    checkLogin();
+  });
+
+  // 페이지 로딩 시 로그인 상태 확인
+  checkLogin();
+</script>
+
+</body>
+</html>

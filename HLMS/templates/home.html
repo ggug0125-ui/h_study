@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스티키 헤더 실습</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+
+    /* 스티키 헤더 커스텀 */
+    .custom-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(90deg, #1e3a8a, #7c3aed);
+  color: white;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+
+    /* 모바일 하단 고정 */
+    @media (max-width: 768px) {
+      .mobile-sticky {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+      }
+      body {
+        padding-bottom: 70px; /* 하단 버튼 가림 방지 */
+      }
+    }
+
+     /* 로고 */
+       .navbar-brand {
+         color: #ffffff !important;
+         font-weight: 700;
+       }
+
+     /* 메뉴 */
+       .navbar .nav-link {
+        color: rgba(255,255,255,0.85) !important;
+        font-weight: 500;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+          color: #ffffff !important;
+          text-decoration: underline;
+        }
+
+        /* 버튼 */
+        .btn-outline-secondary {
+          color: #ffffff;
+          border-color: rgba(255,255,255,0.6);
+        }
+
+        .btn-outline-secondary:hover {
+          background-color: rgba(255,255,255,0.15);
+        }
+
+        .btn-outline-primary {
+          color: #ffffff;
+          border-color: #a78bfa;
+        }
+
+        .btn-outline-primary:hover {
+          background-color: #7c3aed;
+          border-color: #7c3aed;
+        }
+
+        .btn-danger {
+          background-color: #dc3545;
+        }
+
+        .hero-header {
+          position: relative;
+          background:
+            radial-gradient(
+              circle at 30% 30%,
+              rgba(124, 58, 237, 0.35),
+              transparent 40%
+            ),
+            radial-gradient(
+              circle at 70% 60%,
+              rgba(30, 58, 138, 0.4),
+              transparent 45%
+            ),
+            linear-gradient(
+              135deg,
+              #0f172a 0%,   /* 딥 네이비 */
+              #1e3a8a 35%,  /* 블루 */
+              #7c3aed 100%  /* 퍼플 */
+            );
+          color: white;
+          overflow: hidden;
+          border-radius: 0 0 48px 48px;
+        }
+
+        /* 유리 느낌 오버레이 */
+        .hero-header::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            120deg,
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.02)
+          );
+        }
+
+        .hero-header * {
+          position: relative;
+          z-index: 1;
+        }
+
+
+                    /* 콘텐츠 박스 공통 */
+        .content-box {
+          background: linear-gradient(
+            135deg,
+            #e0e7ff 0%,   /* 파랑 조금 진하게 */
+            #ede9fe 100%  /* 보라 조금 진하게 */
+          );
+          border-radius: 16px;
+          padding: 2rem;
+          box-shadow: 0 12px 30px rgba(30, 58, 138, 0.12);
+        }
+        /* 콘텐츠 박스 글자색 */
+        /* 콘텐츠 박스 글자색 */
+.content-box {
+  color: #1f2937; /* 전체 기본 글자색 */
+}
+
+.content-box h2 {
+  color: #312e81; /* 파랑+보라 섞인 딥 네이비 */
+}
+
+.content-box p {
+  color: #374151; /* 본문용 회색 */
+}
+
+
+  </style>
+</head>
+
+<body>
+
+<!-- ✅ 스티키 헤더 -->
+<!-- STICKY HEADER -->
+<nav class="navbar navbar-expand-lg custom-sticky shadow-sm">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" href="{{ url_for('web.home') }}">
+      L.H.J System
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="#board">게시판</a></li>
+        <li class="nav-item"><a class="nav-link" href="#score">성적관리</a></li>
+        <li class="nav-item"><a class="nav-link" href="#shop">상품몰</a></li>
+      </ul>
+
+      <!-- 여기만 유지 -->
+      <div class="d-flex align-items-center gap-2">
+        <a href="{{ url_for('web.signup') }}" class="btn btn-outline-secondary btn-sm">회원가입</a>
+        <a href="{{ url_for('web.login') }}" class="btn btn-outline-primary btn-sm">로그인</a>
+        <a href="{{ url_for('web.logout') }}" class="btn btn-danger btn-sm">로그아웃</a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- HERO -->
+<header class="hero-header text-center py-5">
+  <h1 class="fw-bold display-5">L.H.J Service</h1>
+  <p class="fs-5 opacity-90">최고의 서비스를 제공합니다</p>
+</header>
+
+<!-- CONTENT -->
+<div class="container my-5">
+
+  <!-- 게시판 -->
+  <section id="board" class="mb-5">
+    <div class="content-box">
+      <h2 class="mb-3">게시판</h2>
+      <p>공지사항, 자유게시판, Q&A를 확인할 수 있습니다.</p>
+      <a class="btn btn-outline-primary btn-sm">게시판 바로가기</a>
+    </div>
+  </section>
+
+  <section id="score" class="mb-5">
+    <div class="content-box">
+      <h2 class="mb-3">성적관리</h2>
+      <p>개인별 성적 조회 및 관리 기능을 제공합니다.</p>
+      <a class="btn btn-outline-success btn-sm">성적관리 바로가기</a>
+    </div>
+  </section>
+
+  <section id="shop" class="mb-5">
+    <div class="content-box">
+      <h2 class="mb-3">상품몰</h2>
+      <p>교재, 굿즈, 온라인 상품을 구매할 수 있습니다.</p>
+      <a class="btn btn-outline-warning btn-sm">상품몰 바로가기</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- 모바일 하단 고정 -->
+<div class="d-md-none mobile-sticky bg-white border-top">
+  <div class="btn-group w-100">
+    <button class="btn btn-outline-primary">홈</button>
+    <button class="btn btn-outline-primary">검색</button>
+    <button class="btn btn-primary">주문</button>
+    <button class="btn btn-outline-primary">내정보</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
